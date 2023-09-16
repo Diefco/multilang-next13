@@ -1,0 +1,26 @@
+import {
+  getLocalePartsFrom,
+  locales,
+  ValidLocale,
+  getTranslator,
+} from "@/i18n";
+
+export default async function Home({
+  params,
+}: {
+  params: { lang: string; country: string };
+}) {
+  const translate = await getTranslator(
+    `${params.lang}-${params.country.toUpperCase()}` as ValidLocale // our middleware ensures this is valid
+  );
+  return (
+    <div>
+      <h1>{translate("welcome.helloWorld")}</h1>
+      <h2>
+        {translate("welcome.happyYear", {
+          year: new Date().getFullYear(),
+        })}
+      </h2>
+    </div>
+  );
+}
